@@ -1,0 +1,2 @@
+/Users/azeem/Documents/Projects/atts_jewels/android/app/.cxx/RelWithDebInfo/5dl1ql6t/x86_64/CMakeFiles/edit_cache.dir
+/Users/azeem/Documents/Projects/atts_jewels/android/app/.cxx/RelWithDebInfo/5dl1ql6t/x86_64/CMakeFiles/rebuild_cache.dir

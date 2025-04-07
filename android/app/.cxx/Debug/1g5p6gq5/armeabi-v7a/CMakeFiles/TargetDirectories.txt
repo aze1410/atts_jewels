@@ -1,0 +1,2 @@
+/Users/azeem/Documents/Projects/atts_jewels/android/app/.cxx/Debug/1g5p6gq5/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/azeem/Documents/Projects/atts_jewels/android/app/.cxx/Debug/1g5p6gq5/armeabi-v7a/CMakeFiles/rebuild_cache.dir

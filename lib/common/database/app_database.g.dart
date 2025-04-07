@@ -563,22 +563,106 @@ typedef $$ProductTableTableUpdateCompanionBuilder = ProductTableCompanion
   Value<int?> tax,
 });
 
+class $$ProductTableTableFilterComposer
+    extends Composer<_$AppDatabase, $ProductTableTable> {
+  $$ProductTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get tid => $composableBuilder(
+      column: $table.tid, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get productName => $composableBuilder(
+      column: $table.productName, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get price => $composableBuilder(
+      column: $table.price, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get tax => $composableBuilder(
+      column: $table.tax, builder: (column) => ColumnFilters(column));
+}
+
+class $$ProductTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $ProductTableTable> {
+  $$ProductTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get tid => $composableBuilder(
+      column: $table.tid, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get productName => $composableBuilder(
+      column: $table.productName, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get price => $composableBuilder(
+      column: $table.price, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get tax => $composableBuilder(
+      column: $table.tax, builder: (column) => ColumnOrderings(column));
+}
+
+class $$ProductTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ProductTableTable> {
+  $$ProductTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get tid =>
+      $composableBuilder(column: $table.tid, builder: (column) => column);
+
+  GeneratedColumn<String> get productName => $composableBuilder(
+      column: $table.productName, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
+
+  GeneratedColumn<double> get price =>
+      $composableBuilder(column: $table.price, builder: (column) => column);
+
+  GeneratedColumn<int> get tax =>
+      $composableBuilder(column: $table.tax, builder: (column) => column);
+}
+
 class $$ProductTableTableTableManager extends RootTableManager<
     _$AppDatabase,
     $ProductTableTable,
     ProductData,
     $$ProductTableTableFilterComposer,
     $$ProductTableTableOrderingComposer,
+    $$ProductTableTableAnnotationComposer,
     $$ProductTableTableCreateCompanionBuilder,
-    $$ProductTableTableUpdateCompanionBuilder> {
+    $$ProductTableTableUpdateCompanionBuilder,
+    (
+      ProductData,
+      BaseReferences<_$AppDatabase, $ProductTableTable, ProductData>
+    ),
+    ProductData,
+    PrefetchHooks Function()> {
   $$ProductTableTableTableManager(_$AppDatabase db, $ProductTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$ProductTableTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$ProductTableTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$ProductTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ProductTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ProductTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int?> tid = const Value.absent(),
             Value<String> productName = const Value.absent(),
@@ -607,67 +691,28 @@ class $$ProductTableTableTableManager extends RootTableManager<
             price: price,
             tax: tax,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$ProductTableTableFilterComposer
-    extends FilterComposer<_$AppDatabase, $ProductTableTable> {
-  $$ProductTableTableFilterComposer(super.$state);
-  ColumnFilters<int> get tid => $state.composableBuilder(
-      column: $state.table.tid,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get productName => $state.composableBuilder(
-      column: $state.table.productName,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<String> get category => $state.composableBuilder(
-      column: $state.table.category,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<double> get price => $state.composableBuilder(
-      column: $state.table.price,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get tax => $state.composableBuilder(
-      column: $state.table.tax,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$ProductTableTableOrderingComposer
-    extends OrderingComposer<_$AppDatabase, $ProductTableTable> {
-  $$ProductTableTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get tid => $state.composableBuilder(
-      column: $state.table.tid,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get productName => $state.composableBuilder(
-      column: $state.table.productName,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<String> get category => $state.composableBuilder(
-      column: $state.table.category,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<double> get price => $state.composableBuilder(
-      column: $state.table.price,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get tax => $state.composableBuilder(
-      column: $state.table.tax,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
-
+typedef $$ProductTableTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $ProductTableTable,
+    ProductData,
+    $$ProductTableTableFilterComposer,
+    $$ProductTableTableOrderingComposer,
+    $$ProductTableTableAnnotationComposer,
+    $$ProductTableTableCreateCompanionBuilder,
+    $$ProductTableTableUpdateCompanionBuilder,
+    (
+      ProductData,
+      BaseReferences<_$AppDatabase, $ProductTableTable, ProductData>
+    ),
+    ProductData,
+    PrefetchHooks Function()>;
 typedef $$OrdersTableTableCreateCompanionBuilder = OrdersTableCompanion
     Function({
   Value<int?> tid,
@@ -681,22 +726,85 @@ typedef $$OrdersTableTableUpdateCompanionBuilder = OrdersTableCompanion
   Value<int?> quantity,
 });
 
+class $$OrdersTableTableFilterComposer
+    extends Composer<_$AppDatabase, $OrdersTableTable> {
+  $$OrdersTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get tid => $composableBuilder(
+      column: $table.tid, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get pid => $composableBuilder(
+      column: $table.pid, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get quantity => $composableBuilder(
+      column: $table.quantity, builder: (column) => ColumnFilters(column));
+}
+
+class $$OrdersTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $OrdersTableTable> {
+  $$OrdersTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get tid => $composableBuilder(
+      column: $table.tid, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get pid => $composableBuilder(
+      column: $table.pid, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<int> get quantity => $composableBuilder(
+      column: $table.quantity, builder: (column) => ColumnOrderings(column));
+}
+
+class $$OrdersTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $OrdersTableTable> {
+  $$OrdersTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get tid =>
+      $composableBuilder(column: $table.tid, builder: (column) => column);
+
+  GeneratedColumn<int> get pid =>
+      $composableBuilder(column: $table.pid, builder: (column) => column);
+
+  GeneratedColumn<int> get quantity =>
+      $composableBuilder(column: $table.quantity, builder: (column) => column);
+}
+
 class $$OrdersTableTableTableManager extends RootTableManager<
     _$AppDatabase,
     $OrdersTableTable,
     OrdersData,
     $$OrdersTableTableFilterComposer,
     $$OrdersTableTableOrderingComposer,
+    $$OrdersTableTableAnnotationComposer,
     $$OrdersTableTableCreateCompanionBuilder,
-    $$OrdersTableTableUpdateCompanionBuilder> {
+    $$OrdersTableTableUpdateCompanionBuilder,
+    (OrdersData, BaseReferences<_$AppDatabase, $OrdersTableTable, OrdersData>),
+    OrdersData,
+    PrefetchHooks Function()> {
   $$OrdersTableTableTableManager(_$AppDatabase db, $OrdersTableTable table)
       : super(TableManagerState(
           db: db,
           table: table,
-          filteringComposer:
-              $$OrdersTableTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$OrdersTableTableOrderingComposer(ComposerState(db, table)),
+          createFilteringComposer: () =>
+              $$OrdersTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$OrdersTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$OrdersTableTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback: ({
             Value<int?> tid = const Value.absent(),
             Value<int?> pid = const Value.absent(),
@@ -717,46 +825,25 @@ class $$OrdersTableTableTableManager extends RootTableManager<
             pid: pid,
             quantity: quantity,
           ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
         ));
 }
 
-class $$OrdersTableTableFilterComposer
-    extends FilterComposer<_$AppDatabase, $OrdersTableTable> {
-  $$OrdersTableTableFilterComposer(super.$state);
-  ColumnFilters<int> get tid => $state.composableBuilder(
-      column: $state.table.tid,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get pid => $state.composableBuilder(
-      column: $state.table.pid,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-
-  ColumnFilters<int> get quantity => $state.composableBuilder(
-      column: $state.table.quantity,
-      builder: (column, joinBuilders) =>
-          ColumnFilters(column, joinBuilders: joinBuilders));
-}
-
-class $$OrdersTableTableOrderingComposer
-    extends OrderingComposer<_$AppDatabase, $OrdersTableTable> {
-  $$OrdersTableTableOrderingComposer(super.$state);
-  ColumnOrderings<int> get tid => $state.composableBuilder(
-      column: $state.table.tid,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get pid => $state.composableBuilder(
-      column: $state.table.pid,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-
-  ColumnOrderings<int> get quantity => $state.composableBuilder(
-      column: $state.table.quantity,
-      builder: (column, joinBuilders) =>
-          ColumnOrderings(column, joinBuilders: joinBuilders));
-}
+typedef $$OrdersTableTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $OrdersTableTable,
+    OrdersData,
+    $$OrdersTableTableFilterComposer,
+    $$OrdersTableTableOrderingComposer,
+    $$OrdersTableTableAnnotationComposer,
+    $$OrdersTableTableCreateCompanionBuilder,
+    $$OrdersTableTableUpdateCompanionBuilder,
+    (OrdersData, BaseReferences<_$AppDatabase, $OrdersTableTable, OrdersData>),
+    OrdersData,
+    PrefetchHooks Function()>;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
